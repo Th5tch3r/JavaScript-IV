@@ -39,10 +39,10 @@ class Student extends Person {
         this.favSubjects.map(items => console.log(items));
     }
     PRAssignment(subject){
-        return `${student.name} has submitted a PR for ${subject}`;
+        return `${this.name} has submitted a PR for ${subject}`;
     }
     sprintChallenge(subject){
-        return `${student.name} has begun sprint challenge on ${subject}`;
+        return `${this.name} has begun sprint challenge on ${subject}`;
     }
 }
 
@@ -60,3 +60,66 @@ class ProjectManager extends Instructor {
         return `${this.name} debugs ${student.name}'s code on ${subject}`;
     }
 }
+
+//Objects for Instructor
+const fred = new Instructor({
+    name: 'Fred',
+    location: 'Bedrock',
+    age: 37,
+    favLanguage: 'JavaScript',
+    specialty: 'Front-end',
+    catchPhrase: `Don't forget the homies`
+  });
+
+const Chic = new Instructor({
+    name: 'Chic',
+    location: 'Colorado',
+    age: 28,
+    favLanguage: 'Python',
+    specialty: 'Back-end',
+    catchPhrase: `Cheer!`
+});
+
+//Objects for Student
+const Summer = new Student({
+    name: 'Summer',
+    location: 'Atlanta',
+    age: 20,
+    previousBackground: 'none',
+    favSubjects: ["CSS", "React"]
+});
+
+const Thatcher = new Student({
+    name: 'Thatcher',
+    location: 'Atlanta',
+    age: 18,
+    previousBackground: 'none',
+    favSubjects: ["CSS", "JavaScript"]
+});
+
+//Objects for Project Manager
+const Pete = new ProjectManager({
+    name: 'Pete',
+    location: 'Houston',
+    age: 44,
+    gradClassName: 'CS5'
+});
+
+const Matt = new ProjectManager({
+    name: 'Matt',
+    location: 'New York',
+    age: 25,
+    gradClassName: 'CS8'
+});
+
+
+//console.log
+console.log(fred.speak()); 
+console.log(Summer.listsSubjects());
+console.log(Matt.debugsCode(Summer, "CSS"));
+console.log(Pete.standUp("WEBPT10"));
+console.log(Thatcher.sprintChallenge("Javascript"));
+console.log(Chic.demo("Python"));
+console.log(Chic.grade(Summer, "CSS"));
+console.log(Thatcher.PRAssignment("FlexBox"));
+console.log(Chic.catchPhrase);
