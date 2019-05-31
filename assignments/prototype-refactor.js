@@ -14,15 +14,26 @@ Prototype Refactor
   * dimensions (These represent the character's size in the video game)
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
-function GameObject(attr) {
-    this.createdAt = attr.createdAt;
-    this.name = attr.name;
-    this.dimensions = attr.dimensions;
-  };
+// function GameObject(attr) {
+//     this.createdAt = attr.createdAt;
+//     this.name = attr.name;
+//     this.dimensions = attr.dimensions;
+//   };
   
-  GameObject.prototype.destroy = function() {
-    return `${this.name} was removed from the game.`;
-  }
+//   GameObject.prototype.destroy = function() {
+//     return `${this.name} was removed from the game.`;
+//   }
+
+  class GameObject {
+      constructor(attr) {
+        this.createdAt = attr.createdAt;
+        this.name = attr.name;
+        this.dimensions = attr.dimensions;
+      }
+      destroy() {
+        return `${this.name} was removed from the game.`;
+      }
+  };
   
   /*
     === CharacterStats ===
@@ -31,16 +42,26 @@ function GameObject(attr) {
     * should inherit destroy() from GameObject's prototype
   */
   
-  function CharacterStats (moreAttr) {
-    GameObject.call(this, moreAttr)
-    this.healthPoints = moreAttr.healthPoints;
-  };
+//   function CharacterStats (moreAttr) {
+//     GameObject.call(this, moreAttr)
+//     this.healthPoints = moreAttr.healthPoints;
+//   };
   
-  CharacterStats.prototype = Object.create(GameObject.prototype);
+//   CharacterStats.prototype = Object.create(GameObject.prototype);
   
-  CharacterStats.prototype.takeDamage = function() {
-    return `${this.name} took damage.`;
-  };
+//   CharacterStats.prototype.takeDamage = function() {
+//     return `${this.name} took damage.`;
+//   };
+
+  class CharacterStats extends GameObject {
+      constructor(moreAttr) {
+        super(moreAttr);
+        this.healthPoints = moreAttr.healthPoints;
+      }
+      takeDamage() {
+        return `${this.name} took damage.`;
+      }
+  }
   
   /*
     === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -52,17 +73,29 @@ function GameObject(attr) {
     * should inherit takeDamage() from CharacterStats
   */
   
-  function Humanoid(finalAttr) {
-    CharacterStats.call(this, finalAttr);
-    this.team = finalAttr.team;
-    this.weapons = finalAttr.weapons;
-    this.language = finalAttr.language;
-  };
+//   function Humanoid(finalAttr) {
+//     CharacterStats.call(this, finalAttr);
+//     this.team = finalAttr.team;
+//     this.weapons = finalAttr.weapons;
+//     this.language = finalAttr.language;
+//   };
   
-  Humanoid.prototype = Object.create(CharacterStats.prototype);
+//   Humanoid.prototype = Object.create(CharacterStats.prototype);
   
-  Humanoid.prototype.greet = function() {
-    return `${this.name} offers a greeting in ${this.language}.`;
+//   Humanoid.prototype.greet = function() {
+//     return `${this.name} offers a greeting in ${this.language}.`;
+//   }
+
+  class Humanoid extends CharacterStats {
+      constructor(finalAttr) {
+          super(finalAttr);
+          this.team = finalAttr.team;
+          this.weapons = finalAttr.weapons;
+          this.language = finalAttr.language;
+      }
+      greet() {
+        return `${this.name} offers a greeting in ${this.language}.`;
+      }
   }
    
   /*
@@ -73,7 +106,7 @@ function GameObject(attr) {
   
   // Test you work by un-commenting these 3 objects and the list of console logs below:
   
-  /*
+
     const mage = new Humanoid({
       createdAt: new Date(),
       dimensions: {
@@ -123,8 +156,8 @@ function GameObject(attr) {
       ],
       language: 'Elvish',
     });
-    */
-  /*
+  
+
     console.log(mage.createdAt); // Today's date
     console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
     console.log(swordsman.healthPoints); // 15
@@ -135,4 +168,3 @@ function GameObject(attr) {
     console.log(archer.greet()); // Lilith offers a greeting in Elvish.
     console.log(mage.takeDamage()); // Bruce took damage.
     console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-  */
